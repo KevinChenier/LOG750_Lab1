@@ -3,6 +3,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "glwidget.h"
+#include <QBoxLayout>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -13,12 +14,13 @@ MainWindow::MainWindow(QWidget *parent) :
 }
 
 void MainWindow::setupMediator() {
-    m_viewer = new GLWidget;
-
+//    m_viewer = new GLWidget;
+    Viewer *viewer = new Viewer();
     QLayout *layout = new QHBoxLayout;
-    layout->addWidget(m_viewer);
+    layout->addWidget(viewer);
     ui->frame->setLayout(layout);
 }
+
 
 MainWindow::~MainWindow()
 {

@@ -3,8 +3,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "simpleViewer.h"
 #include <QMainWindow>
-
 #include "glwidget.h"
 
 namespace Ui {
