@@ -54,7 +54,7 @@ void Viewer::cleanup()
 
   // Delete shaders
 	delete m_programRender;
-  m_programRender = 0;
+    m_programRender = 0;
 
   // Delete buffers
   glDeleteBuffers(NumBuffers, m_Buffers);
@@ -71,8 +71,8 @@ void Viewer::draw()
   // Get projection and camera transformations
   QMatrix4x4 projectionMatrix;
   QMatrix4x4 modelViewMatrix;
-  camera()->getProjectionMatrix(projectionMatrix);
-  camera()->getModelViewMatrix(modelViewMatrix);
+//  camera()->getProjectionMatrix(projectionMatrix);
+//  camera()->getModelViewMatrix(modelViewMatrix);
 
   m_programRender->setUniformValue(m_projMatrixLocation, projectionMatrix);
   m_programRender->setUniformValue(m_mvMatrixLocation, modelViewMatrix);
@@ -139,6 +139,7 @@ void Viewer::initRenderShaders()
 
 	if ((m_normalMatrixLocation = m_programRender->uniformLocation("normalMatrix")) < 0)
 		qDebug() << "Unable to find shader location for " << "normalMatrix";
+
 }
 
 void Viewer::initGeometrySphere()
@@ -166,15 +167,16 @@ void Viewer::initGeometrySphere()
   unsigned int v = 0;
   float thetaInc = 2.0f*3.14159265f / static_cast<float>(numColSphere);
   float phiInc = 3.14159265f / static_cast<float>(numRowSphere+1);
+  float ray = 0.9f ;
   for (int row=0; row<numRowSphere; ++row)
   {
     float phi = 3.14159265f - (static_cast<float>(row+1) * phiInc);
     for (int col=0; col<numColSphere; ++col, ++v)
     {
       float theta = col*thetaInc;
-      vertices[v][0] = 0.5*sin(theta)*sin(phi);
-      vertices[v][1] = 0.5*cos(phi);
-      vertices[v][2] = 0.5*cos(theta)*sin(phi);
+      vertices[v][0] = ray*sin(theta)*sin(phi);
+      vertices[v][1] = ray*cos(phi);
+      vertices[v][2] = ray*cos(theta)*sin(phi);
 
       normals[v][0] = vertices[v][0]*2.0f;	// Multiply by 2 because sphere radius is 0.5
       normals[v][1] = vertices[v][1]*2.0f;
@@ -241,11 +243,12 @@ void Viewer::initGeometrySphere()
   GLsizeiptr offsetVertices = 0;
   GLsizeiptr offsetNormals = sizeof(vertices);
   GLsizeiptr dataSize = offsetNormals + sizeof(normals);
-
+  GLfloat color[3] = {0, 0, 1};
   glBindBuffer(GL_ARRAY_BUFFER, m_Buffers[VBO_Sphere]);
-  glBufferData(GL_ARRAY_BUFFER, dataSize, NULL, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, dataSize+sizeof(color), NULL, GL_STATIC_DRAW);
   glBufferSubData(GL_ARRAY_BUFFER, offsetVertices, sizeof(vertices), vertices);
   glBufferSubData(GL_ARRAY_BUFFER, offsetNormals, sizeof(normals), normals);
+  glBufferSubData(GL_ARRAY_BUFFER, sizeof(vertices), sizeof(color), color);
 
   // Set VAO
   glBindVertexArray(m_VAOs[VAO_Sphere]);
@@ -260,5 +263,7 @@ void Viewer::initGeometrySphere()
   //			 However, we will need to call glDrawElements() instead of glDrawArrays().
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Buffers[EBO_Sphere]);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+  glClearColor(0.5f, 0.5f, 0.5f, 1.0);// add background
 
 }
