@@ -1,2 +1,10 @@
-
 *.user
+debug/
+release/
+*.qmake.stash
+*.Debug
+*.Release
+Makefile
+ui_ImageInterface.h
+ui_VRenderInterface.h
+ui_mainwindow.h
