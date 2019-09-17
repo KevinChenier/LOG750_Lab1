@@ -69,12 +69,17 @@ protected:
     void initializeGL() Q_DECL_OVERRIDE;
     void paintGL() Q_DECL_OVERRIDE;
     void resizeGL(int width, int height) Q_DECL_OVERRIDE;
-
+    void initGeometrySphere();
 private:
-
     int m_vPositionLocation;
+    int m_vNormalLocation;
+    int m_mvMatrixLocation;
+    int	m_normalMatrixLocation;
 
     QOpenGLShaderProgram *m_program;
+
+
+
 };
 
 #endif

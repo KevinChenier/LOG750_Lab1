@@ -14,10 +14,9 @@ MainWindow::MainWindow(QWidget *parent) :
 }
 
 void MainWindow::setupMediator() {
-//    m_viewer = new GLWidget;
-    Viewer *viewer = new Viewer();
+    m_viewer = new GLWidget;
     QLayout *layout = new QHBoxLayout;
-    layout->addWidget(viewer);
+    layout->addWidget(m_viewer);
     ui->frame->setLayout(layout);
 }
 
