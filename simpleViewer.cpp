@@ -82,7 +82,9 @@ void Viewer::draw()
   // Note: Because we are using an index buffer, we need to call glDrawElements instead
   // of glDrawArrays.
   glBindVertexArray(m_VAOs[VAO_Sphere]);
+  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
   glDrawElements(GL_TRIANGLES, numTriSphere*3, GL_UNSIGNED_INT, 0);
+
 }
 
 void Viewer::init()
