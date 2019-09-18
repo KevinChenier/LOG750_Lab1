@@ -9,10 +9,7 @@ out vec3 fPosition;
 void
 main()
 {
-     vec4 vEyeCoord = mvMatrix * vPosition;
-     gl_Position = projMatrix * vEyeCoord;
-
-     fPosition = vEyeCoord.xyz;
+     gl_Position = vPosition;
      fNormal = normalMatrix*vNormal;
 }
 

@@ -70,6 +70,7 @@ protected:
     void paintGL() Q_DECL_OVERRIDE;
     void resizeGL(int width, int height) Q_DECL_OVERRIDE;
     void initGeometrySphere();
+    void initRenderShaders();
 private:
     int m_vPositionLocation;
     int m_vNormalLocation;

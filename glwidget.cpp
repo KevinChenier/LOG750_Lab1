@@ -128,11 +128,15 @@ void GLWidget::cleanup()
 
 void GLWidget::paintGL()
 {
+    m_program->bind();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glBindVertexArray(VAOs[VAO_Sphere]);
-    m_program->bind();
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,Buffers[EBO_Sphere]);
 
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glDrawElements(GL_TRIANGLES, numTriSphere*3, GL_UNSIGNED_INT, 0);
+
+    //glDrawArrays(GL_POINTS, 0, numTriSphere*3);
 
     glFlush();
 }
@@ -147,34 +151,21 @@ void GLWidget::initializeGL()
 
     initializeOpenGLFunctions();
 
+    //glBindBuffer(GL_ARRAY_BUFFER, Buffers[ArrayBuffer]);
+    //glBufferData(GL_ARRAY_BUFFER, sizeof(vertices),vertices, GL_STATIC_DRAW);
 
-     initGeometrySphere();
-     glGenVertexArrays(NumVAOs, VAOs);
-     glGenBuffers(NumBuffers, Buffers);
+    // Init shaders
+    initRenderShaders();
 
-    m_program = new QOpenGLShaderProgram;
-    if (!m_program->addShaderFromSourceFile(QOpenGLShader::Vertex, "basicShader.vert")) {
-        cerr << "Unable to load shader" << endl
-             << "Log file:" << endl;
-        qDebug() << m_program->log();
-    }
-    if (!m_program->addShaderFromSourceFile(QOpenGLShader::Fragment, "basicShader.frag")) {
-        cerr << "Unable to load shader" << endl
-             << "Log file:" << endl;
-        qDebug() << m_program->log();
-    }
-    m_program->link();
-    m_program->bind();
+    glGenVertexArrays(NumVAOs, VAOs);
+    glGenBuffers(NumBuffers, Buffers);
 
-    // The strings "vPosition", "mvMatrix", etc. have to match an attribute name in the vertex shader.
-    QString shaderParameter;
-    shaderParameter = "vPosition";
-    if ((m_vPositionLocation = m_program->attributeLocation(shaderParameter)) < 0)
-        qDebug() << "Unable to find shader location for " << shaderParameter;
+    initGeometrySphere();
 
     glUseProgram(m_program->programId());
-    glVertexAttribPointer(GLuint(m_vPositionLocation), 2, GL_FLOAT,
+    glVertexAttribPointer(GLuint(m_vPositionLocation), 3, GL_FLOAT,
                           GL_FALSE, 0, BUFFER_OFFSET(0));
+    printf("location: %d", m_vPositionLocation);
     glEnableVertexAttribArray(GLuint(m_vPositionLocation));
 
     glEnable(GL_DEPTH_TEST);
@@ -190,6 +181,28 @@ void GLWidget::initializeGL()
 
     // Init GL properties
     glPointSize(10.0f);
+}
+void GLWidget::initRenderShaders()
+{
+    m_program = new QOpenGLShaderProgram;
+    if (!m_program->addShaderFromSourceFile(QOpenGLShader::Vertex, "basicShader.vert")) {
+        cerr << "Unable to load shader" << endl
+             << "Log file:" << endl;
+        qDebug() << m_program->log();
+    }
+    if (!m_program->addShaderFromSourceFile(QOpenGLShader::Fragment, "basicShader.frag")) {
+        cerr << "Unable to load shader" << endl
+             << "Log file:" << endl;
+        qDebug() << m_program->log();
+    }
+    // The strings "vPosition", "mvMatrix", etc. have to match an attribute name in the vertex shader.
+    QString shaderParameter;
+    shaderParameter = "vPosition";
+    if ((m_vPositionLocation = m_program->attributeLocation(shaderParameter)) < 0)
+        qDebug() << "Unable to find shader location for " << shaderParameter;
+
+    m_program->link();
+    m_program->bind();
 }
 void GLWidget::initGeometrySphere()
 {
@@ -223,23 +236,23 @@ void GLWidget::initGeometrySphere()
     for (int col=0; col<numColSphere; ++col, ++v)
     {
       float theta = col*thetaInc;
-      vertices[v][0] = ray*sin(theta)*sin(phi);
-      vertices[v][1] = ray*cos(phi);
-      vertices[v][2] = ray*cos(theta)*sin(phi);
+      vertices[v][0] = ray*sin(theta)*sin(phi); // x
+      vertices[v][1] = ray*cos(phi);            // z
+      vertices[v][2] = ray*cos(theta)*sin(phi); // y
 
-      normals[v][0] = vertices[v][0]*2.0f;	// Multiply by 2 because sphere radius is 0.5
-      normals[v][1] = vertices[v][1]*2.0f;
-      normals[v][2] = vertices[v][2]*2.0f;
+      normals[v][0] = vertices[v][0]/ray;
+      normals[v][1] = vertices[v][1]/ray;
+      normals[v][2] = vertices[v][2]/ray;
     }
   }
 
   // Generate cap vertices
   vertices[numColSphere*numRowSphere+0][0] = 0.0f;
-  vertices[numColSphere*numRowSphere+0][1] = -0.5f;
+  vertices[numColSphere*numRowSphere+0][1] = -ray;
   vertices[numColSphere*numRowSphere+0][2] = 0.0f;
 
   vertices[numColSphere*numRowSphere+1][0] = 0.0f;
-  vertices[numColSphere*numRowSphere+1][1] = 0.5f;
+  vertices[numColSphere*numRowSphere+1][1] = ray;
   vertices[numColSphere*numRowSphere+1][2] = 0.0f;
 
   normals[numColSphere*numRowSphere+0][0] = 0.0f;
