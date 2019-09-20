@@ -1,5 +1,4 @@
 /* Modified by Eric Paquette, eric.paquette@etsmtl.ca, 2019-01-08 */
-#include "simpleViewer.h"
 #include "mainwindow.h"
 #include <QApplication>
 

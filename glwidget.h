@@ -62,6 +62,18 @@ public:
 
 public slots:
     void cleanup();
+    void SetAmbiantLightingR(double r);
+    void SetAmbiantLightingG(double g);
+    void SetAmbiantLightingB(double b);
+    void SetSpecularLightingR(double r);
+    void SetSpecularLightingG(double g);
+    void SetSpecularLightingB(double b);
+    void SetSpecularLightingN(double r);
+    void SetDiffuseLightingR(double g);
+    void SetDiffuseLightingG(double b);
+    void SetDiffuseLightingB(double n);
+    void SetSphereLongitude(double l);
+    void SetSphereLatitude(double l);
 
 signals:
 
@@ -69,12 +81,18 @@ protected:
     void initializeGL() Q_DECL_OVERRIDE;
     void paintGL() Q_DECL_OVERRIDE;
     void resizeGL(int width, int height) Q_DECL_OVERRIDE;
-
+    void initGeometrySphere();
+    void initRenderShaders();
 private:
-
     int m_vPositionLocation;
+    int m_vNormalLocation;
+    int m_mvMatrixLocation;
+    int	m_normalMatrixLocation;
 
     QOpenGLShaderProgram *m_program;
+
+
+
 };
 
 #endif
