@@ -62,6 +62,18 @@ public:
 
 public slots:
     void cleanup();
+    void SetAmbiantLightingR(double r);
+    void SetAmbiantLightingG(double g);
+    void SetAmbiantLightingB(double b);
+    void SetSpecularLightingR(double r);
+    void SetSpecularLightingG(double g);
+    void SetSpecularLightingB(double b);
+    void SetSpecularLightingN(double r);
+    void SetDiffuseLightingR(double g);
+    void SetDiffuseLightingG(double b);
+    void SetDiffuseLightingB(double n);
+    void SetSphereLongitude(double l);
+    void SetSphereLatitude(double l);
 
 signals:
 

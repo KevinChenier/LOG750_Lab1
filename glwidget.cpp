@@ -329,3 +329,27 @@ void GLWidget::initGeometrySphere()
   glClearColor(0.5f, 0.5f, 0.5f, 1.0);// add background
 
 }
+
+void GLWidget::SetAmbiantLightingR(double r){};
+
+void GLWidget::SetAmbiantLightingG(double g){};
+
+void GLWidget::SetAmbiantLightingB(double b){};
+
+void GLWidget::SetDiffuseLightingR(double r){};
+
+void GLWidget::SetDiffuseLightingG(double g){};
+
+void GLWidget::SetDiffuseLightingB(double b){};
+
+void GLWidget::SetSpecularLightingR(double r){};
+
+void GLWidget::SetSpecularLightingG(double g){};
+
+void GLWidget::SetSpecularLightingB(double b){};
+
+void GLWidget::SetSpecularLightingN(double n){};
+
+void GLWidget::SetSphereLongitude(double l){};
+
+void GLWidget::SetSphereLatitude(double l){};
