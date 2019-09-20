@@ -252,7 +252,7 @@ void GLWidget::initGeometrySphere()
   vertices[numColSphere*numRowSphere+0][2] = 0.0f;
 
   vertices[numColSphere*numRowSphere+1][0] = 0.0f;
-  vertices[numColSphere*numRowSphere+1][1] = ray;
+  vertices[numColSphere*numRowSphere+1][1] = +ray;
   vertices[numColSphere*numRowSphere+1][2] = 0.0f;
 
   normals[numColSphere*numRowSphere+0][0] = 0.0f;
@@ -265,12 +265,12 @@ void GLWidget::initGeometrySphere()
 
   // Generate surrounding indices (faces)
   unsigned int tri = 0;
-  for (int row=0; row<numRowSphere-1; ++row)
+  for (unsigned int row=0; row<numRowSphere-1; ++row)
   {
     unsigned int rowStart = row*numColSphere;
     unsigned int topRowStart = rowStart + numColSphere;
 
-    for (int col=0; col<numColSphere; ++col, tri += 2)
+    for (unsigned int col=0; col<numColSphere; ++col, tri += 2)
     {
       // Compute quad vertices
       unsigned int v = rowStart + col;
@@ -289,7 +289,7 @@ void GLWidget::initGeometrySphere()
   }
 
   // Generate cap indices (faces)
-  for (int col=0; col<numColSphere; ++col, tri += 2)
+  for (unsigned int col=0; col<numColSphere; ++col, tri += 2)
   {
     indices[tri+0][0] = numColSphere*numRowSphere;
     indices[tri+0][1] = (col<numColSphere-1) ? col+1 : 0;
