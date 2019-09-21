@@ -155,11 +155,14 @@ void GLWidget::initRenderShaders()
 
     // Specify shader input paramters
     // The strings "vPosition", "vNormal", etc. have to match an attribute name in the vertex shader.
-    if ((m_vPositionLocation = m_program->attributeLocation("vPosition")) < 0)
-       qDebug() << "Unable to find shader location for " << "vPosition";
+    QString shaderParameter;
+    shaderParameter = "vPosition";
+    if ((m_vPositionLocation = m_program->attributeLocation(shaderParameter)) < 0)
+       qDebug() << "Unable to find shader location for " << shaderParameter;
 
-    if ((m_vNormalLocation = m_program->attributeLocation("vNormal")) < 0)
-       qDebug() << "Unable to find shader location for " << "vNormal";
+    shaderParameter = "vNormal";
+    if ((m_vNormalLocation = m_program->attributeLocation(shaderParameter)) < 0)
+       qDebug() << "Unable to find shader location for " << shaderParameter;
 }
 void GLWidget::initGeometrySphere()
 {
