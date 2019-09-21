@@ -46,14 +46,12 @@
 #include <QOpenGLShaderProgram>
 #include <QCoreApplication>
 #include <math.h>
-
 #include <qopengl.h>
-
 #include <iostream>
+
 using namespace std;
 
 #define GAP  25				/* gap between subwindows */
-
 #define BUFFER_OFFSET(i) (static_cast<char *>(nullptr) + (i))
 
 enum VAO_IDs { VAO_Sphere, NumVAOs };
@@ -90,42 +88,6 @@ void GLWidget::cleanup()
     doneCurrent();
 }
 
-//void Viewer::initRenderShaders()
-//{
-//    // Load vertex and fragment shaders
-//    m_programRender = new QOpenGLShaderProgram;
-//  if (!m_programRender->addShaderFromSourceFile(QOpenGLShader::Vertex, "basicShader.vert")) {
-//        cerr << "Unable to load Shader" << endl
-//                 << "Log file:" << endl;
-//        qDebug() << m_programRender->log();
-//    }
-//  if (!m_programRender->addShaderFromSourceFile(QOpenGLShader::Fragment, "basicShader.frag")) {
-//        cerr << "Unable to load Shader" << endl
-//                 << "Log file:" << endl;
-//        qDebug() << m_programRender->log();
-//    }
-//    m_programRender->link();
-//    m_programRender->bind();	// Note: This is equivalent to glUseProgram(programId());
-
-//    // Specify shader input paramters
-//    // The strings "vPosition", "mvMatrix", etc. have to match an attribute name in the vertex shader.
-//    if ((m_vPositionLocation = m_programRender->attributeLocation("vPosition")) < 0)
-//        qDebug() << "Unable to find shader location for " << "vPosition";
-
-//    if ((m_vNormalLocation = m_programRender->attributeLocation("vNormal")) < 0)
-//        qDebug() << "Unable to find shader location for " << "vNormal";
-
-//    if ((m_mvMatrixLocation = m_programRender->uniformLocation("mvMatrix")) < 0)
-//        qDebug() << "Unable to find shader location for " << "mvMatrix";
-
-//    if ((m_projMatrixLocation = m_programRender->uniformLocation("projMatrix")) < 0)
-//        qDebug() << "Unable to find shader location for " << "projMatrix";
-
-//    if ((m_normalMatrixLocation = m_programRender->uniformLocation("normalMatrix")) < 0)
-//        qDebug() << "Unable to find shader location for " << "normalMatrix";
-
-//}
-
 void GLWidget::paintGL()
 {
     m_program->bind();
@@ -151,15 +113,14 @@ void GLWidget::initializeGL()
 
     initializeOpenGLFunctions();
 
-    //glBindBuffer(GL_ARRAY_BUFFER, Buffers[ArrayBuffer]);
-    //glBufferData(GL_ARRAY_BUFFER, sizeof(vertices),vertices, GL_STATIC_DRAW);
-
     // Init shaders
     initRenderShaders();
 
+    // Create our VertexArrays Objects and VertexBuffer Objects
     glGenVertexArrays(NumVAOs, VAOs);
     glGenBuffers(NumBuffers, Buffers);
 
+    // Init sphere
     initGeometrySphere();
 
     glUseProgram(m_program->programId());
@@ -170,21 +131,14 @@ void GLWidget::initializeGL()
 
     glEnable(GL_DEPTH_TEST);
 
-//    glBindBuffer(GL_ARRAY_BUFFER, Buffers[ArrayBuffer]);
-//    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices),vertices, GL_STATIC_DRAW);
-
-
-    // Create our VertexArrays Objects and VertexBuffer Objects
-//    glGenVertexArrays(NumVAOs, m_VAOs);
-//    glGenBuffers(NumBuffers, m_Buffers);
-
-
     // Init GL properties
     glPointSize(10.0f);
 }
 void GLWidget::initRenderShaders()
 {
     m_program = new QOpenGLShaderProgram;
+
+    // Load vertex and fragment shaders
     if (!m_program->addShaderFromSourceFile(QOpenGLShader::Vertex, "basicShader.vert")) {
         cerr << "Unable to load shader" << endl
              << "Log file:" << endl;
@@ -195,14 +149,17 @@ void GLWidget::initRenderShaders()
              << "Log file:" << endl;
         qDebug() << m_program->log();
     }
-    // The strings "vPosition", "mvMatrix", etc. have to match an attribute name in the vertex shader.
-    QString shaderParameter;
-    shaderParameter = "vPosition";
-    if ((m_vPositionLocation = m_program->attributeLocation(shaderParameter)) < 0)
-        qDebug() << "Unable to find shader location for " << shaderParameter;
 
     m_program->link();
     m_program->bind();
+
+    // Specify shader input paramters
+    // The strings "vPosition", "vNormal", etc. have to match an attribute name in the vertex shader.
+    if ((m_vPositionLocation = m_program->attributeLocation("vPosition")) < 0)
+       qDebug() << "Unable to find shader location for " << "vPosition";
+
+    if ((m_vNormalLocation = m_program->attributeLocation("vNormal")) < 0)
+       qDebug() << "Unable to find shader location for " << "vNormal";
 }
 void GLWidget::initGeometrySphere()
 {
@@ -306,6 +263,7 @@ void GLWidget::initGeometrySphere()
   GLsizeiptr offsetNormals = sizeof(vertices);
   GLsizeiptr dataSize = offsetNormals + sizeof(normals);
   GLfloat color[3] = {0, 0, 1};
+
   glBindBuffer(GL_ARRAY_BUFFER, Buffers[VBO_Sphere]);
   glBufferData(GL_ARRAY_BUFFER, dataSize+sizeof(color), NULL, GL_STATIC_DRAW);
   glBufferSubData(GL_ARRAY_BUFFER, offsetVertices, sizeof(vertices), vertices);
@@ -327,29 +285,52 @@ void GLWidget::initGeometrySphere()
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
   glClearColor(0.5f, 0.5f, 0.5f, 1.0);// add background
-
 }
 
-void GLWidget::SetAmbiantLightingR(double r){};
+void GLWidget::setAmbiantLightingR(double r)
+{
+}
 
-void GLWidget::SetAmbiantLightingG(double g){};
+void GLWidget::setAmbiantLightingG(double g)
+{
+}
 
-void GLWidget::SetAmbiantLightingB(double b){};
+void GLWidget::setAmbiantLightingB(double b)
+{
+}
 
-void GLWidget::SetDiffuseLightingR(double r){};
+void GLWidget::setDiffuseLightingR(double r)
+{
+}
 
-void GLWidget::SetDiffuseLightingG(double g){};
+void GLWidget::setDiffuseLightingG(double g)
+{
+}
 
-void GLWidget::SetDiffuseLightingB(double b){};
+void GLWidget::setDiffuseLightingB(double b)
+{
+}
 
-void GLWidget::SetSpecularLightingR(double r){};
+void GLWidget::setSpecularLightingR(double r)
+{
+}
 
-void GLWidget::SetSpecularLightingG(double g){};
+void GLWidget::setSpecularLightingG(double g)
+{
+}
 
-void GLWidget::SetSpecularLightingB(double b){};
+void GLWidget::setSpecularLightingB(double b)
+{
+}
 
-void GLWidget::SetSpecularLightingN(double n){};
+void GLWidget::setSpecularLightingN(double n)
+{
+}
 
-void GLWidget::SetSphereLongitude(double l){};
+void GLWidget::setSphereLongitude(double l)
+{
+}
 
-void GLWidget::SetSphereLatitude(double l){};
+void GLWidget::setSphereLatitude(double l)
+{
+}
