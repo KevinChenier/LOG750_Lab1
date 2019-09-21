@@ -62,18 +62,18 @@ public:
 
 public slots:
     void cleanup();
-    void SetAmbiantLightingR(double r);
-    void SetAmbiantLightingG(double g);
-    void SetAmbiantLightingB(double b);
-    void SetSpecularLightingR(double r);
-    void SetSpecularLightingG(double g);
-    void SetSpecularLightingB(double b);
-    void SetSpecularLightingN(double n);
-    void SetDiffuseLightingR(double r);
-    void SetDiffuseLightingG(double g);
-    void SetDiffuseLightingB(double b);
-    void SetSphereLongitude(double l);
-    void SetSphereLatitude(double l);
+    void setAmbiantLightingR(double r);
+    void setAmbiantLightingG(double g);
+    void setAmbiantLightingB(double b);
+    void setSpecularLightingR(double r);
+    void setSpecularLightingG(double g);
+    void setSpecularLightingB(double b);
+    void setSpecularLightingN(double n);
+    void setDiffuseLightingR(double r);
+    void setDiffuseLightingG(double g);
+    void setDiffuseLightingB(double b);
+    void setSphereLongitude(double l);
+    void setSphereLatitude(double l);
 
 signals:
 
@@ -86,8 +86,6 @@ protected:
 private:
     int m_vPositionLocation;
     int m_vNormalLocation;
-    int m_mvMatrixLocation;
-    int	m_normalMatrixLocation;
 
     QOpenGLShaderProgram *m_program;
 
