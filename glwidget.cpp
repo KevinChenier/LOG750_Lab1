@@ -252,7 +252,7 @@ void GLWidget::initGeometrySphere()
   vertices[numColSphere*numRowSphere+0][2] = 0.0f;
 
   vertices[numColSphere*numRowSphere+1][0] = 0.0f;
-  vertices[numColSphere*numRowSphere+1][1] = +ray;
+  vertices[numColSphere*numRowSphere+1][1] = ray;
   vertices[numColSphere*numRowSphere+1][2] = 0.0f;
 
   normals[numColSphere*numRowSphere+0][0] = 0.0f;
