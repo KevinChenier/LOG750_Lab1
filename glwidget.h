@@ -68,10 +68,10 @@ public slots:
     void SetSpecularLightingR(double r);
     void SetSpecularLightingG(double g);
     void SetSpecularLightingB(double b);
-    void SetSpecularLightingN(double r);
-    void SetDiffuseLightingR(double g);
-    void SetDiffuseLightingG(double b);
-    void SetDiffuseLightingB(double n);
+    void SetSpecularLightingN(double n);
+    void SetDiffuseLightingR(double r);
+    void SetDiffuseLightingG(double g);
+    void SetDiffuseLightingB(double b);
     void SetSphereLongitude(double l);
     void SetSphereLatitude(double l);
 
