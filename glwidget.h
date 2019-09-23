@@ -60,22 +60,36 @@ public:
     GLWidget(QWidget *parent = nullptr);
     ~GLWidget() override;
 
-public slots:
     void cleanup();
-    void setAmbiantLightingR(double r);
-    void setAmbiantLightingG(double g);
-    void setAmbiantLightingB(double b);
-    void setSpecularLightingR(double r);
-    void setSpecularLightingG(double g);
-    void setSpecularLightingB(double b);
-    void setSpecularLightingN(double n);
-    void setDiffuseLightingR(double r);
-    void setDiffuseLightingG(double g);
-    void setDiffuseLightingB(double b);
-    void setSphereLongitude(double l);
-    void setSphereLatitude(double l);
 
-signals:
+    // Getters
+    GLfloat getAmbientLightingR() const { return ambientR > 1.0f ? 1.0f : ambientR < 0.0f ? 0.0f : ambientR; }
+    GLfloat getAmbientLightingG() const { return ambientG > 1.0f ? 1.0f : ambientG < 0.0f ? 0.0f : ambientG; }
+    GLfloat getAmbientLightingB() const { return ambientB > 1.0f ? 1.0f : ambientB < 0.0f ? 0.0f : ambientB; }
+    GLfloat getDiffuseLightingR() const { return diffuseR > 1.0f ? 1.0f : diffuseR < 0.0f ? 0.0f : diffuseR; }
+    GLfloat getDiffuseLightingG() const { return diffuseG > 1.0f ? 1.0f : diffuseG < 0.0f ? 0.0f : diffuseG; }
+    GLfloat getDiffuseLightingB() const { return diffuseB > 1.0f ? 1.0f : diffuseB < 0.0f ? 0.0f : diffuseB; }
+    GLfloat getSpecularLightingR() const { return specularR > 1.0f ? 1.0f : specularR < 0.0f ? 0.0f : specularR; }
+    GLfloat getSpecularLightingG() const { return specularG > 1.0f ? 1.0f : specularG < 0.0f ? 0.0f : specularG; }
+    GLfloat getSpecularLightingB() const { return specularB > 1.0f ? 1.0f : specularB < 0.0f ? 0.0f : specularB; }
+    GLfloat getSpecularLightingN() const { return specularN < 1.0f ? 1.0f : specularN; }
+    GLfloat getSphereLongitude() const { return sphereLongitude < 0.0f ? 0.0f : sphereLongitude; }
+    GLfloat getSphereLatitude() const { return sphereLatitude < 0.0f ? 0.0f : sphereLatitude; }
+
+public slots:
+    //Setters
+    void setAmbientLightingR(double r) { ambientR = GLfloat(r); }
+    void setAmbientLightingG(double g) { ambientG = GLfloat(g); }
+    void setAmbientLightingB(double b) { ambientB = GLfloat(b); }
+    void setDiffuseLightingR(double r) { diffuseR= GLfloat(r); }
+    void setDiffuseLightingG(double g) { diffuseG = GLfloat(g); }
+    void setDiffuseLightingB(double b) { diffuseB = GLfloat(b); }
+    void setSpecularLightingR(double r) { specularR = GLfloat(r); }
+    void setSpecularLightingG(double g) { specularG = GLfloat(g); }
+    void setSpecularLightingB(double b) { specularB = GLfloat(b); }
+    void setSpecularLightingN(double n) { specularN = GLfloat(n); }
+    void setSphereLongitude(double l) { sphereLongitude = GLfloat(l); }
+    void setSphereLatitude(double l) { sphereLatitude = GLfloat(l); }
 
 protected:
     void initializeGL() Q_DECL_OVERRIDE;
@@ -83,14 +97,31 @@ protected:
     void resizeGL(int width, int height) Q_DECL_OVERRIDE;
     void initGeometrySphere();
     void initRenderShaders();
+
 private:
+    // Shader Parameters
     int m_vPositionLocation;
     int m_vNormalLocation;
+    int m_uniformAmbientLightingLoc;
+    int m_uniformDiffuseLightingLoc;
+    int m_uniformSpecularLightingLoc;
+    int m_uniformSpecularExponentLoc;
+
+    // Lighting and sphere parameters
+    GLfloat ambientR = 0.0f;
+    GLfloat ambientG = 0.0f;
+    GLfloat ambientB = 0.0f;
+    GLfloat diffuseR = 0.0f;
+    GLfloat diffuseG = 0.0f;
+    GLfloat diffuseB = 0.0f;
+    GLfloat specularR = 0.0f;
+    GLfloat specularG = 0.0f;
+    GLfloat specularB = 0.0f;
+    GLfloat specularN = 1.0f;
+    GLfloat sphereLongitude = 0.0f;
+    GLfloat sphereLatitude = 0.0f;
 
     QOpenGLShaderProgram *m_program;
-
-
-
 };
 
 #endif

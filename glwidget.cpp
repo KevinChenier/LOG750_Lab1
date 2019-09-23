@@ -90,15 +90,17 @@ void GLWidget::cleanup()
 
 void GLWidget::paintGL()
 {
-    m_program->bind();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glBindVertexArray(VAOs[VAO_Sphere]);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,Buffers[EBO_Sphere]);
+    m_program->bind();
 
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    // Paint sphere
+    // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    m_program->setUniformValue(m_uniformAmbientLightingLoc, getAmbientLightingR(), getAmbientLightingG(), getAmbientLightingB());
+    m_program->setUniformValue(m_uniformDiffuseLightingLoc, getDiffuseLightingR(), getDiffuseLightingG(), getDiffuseLightingB());
+    m_program->setUniformValue(m_uniformSpecularLightingLoc, getSpecularLightingR(), getSpecularLightingG(), getSpecularLightingB());
+    m_program->setUniformValue(m_uniformSpecularExponentLoc, getSpecularLightingN());
     glDrawElements(GL_TRIANGLES, numTriSphere*3, GL_UNSIGNED_INT, 0);
-
-    //glDrawArrays(GL_POINTS, 0, numTriSphere*3);
 
     glFlush();
 }
@@ -124,16 +126,13 @@ void GLWidget::initializeGL()
     initGeometrySphere();
 
     glUseProgram(m_program->programId());
-    glVertexAttribPointer(GLuint(m_vPositionLocation), 3, GL_FLOAT,
-                          GL_FALSE, 0, BUFFER_OFFSET(0));
-    printf("location: %d", m_vPositionLocation);
-    glEnableVertexAttribArray(GLuint(m_vPositionLocation));
 
     glEnable(GL_DEPTH_TEST);
 
     // Init GL properties
     glPointSize(10.0f);
 }
+
 void GLWidget::initRenderShaders()
 {
     m_program = new QOpenGLShaderProgram;
@@ -163,7 +162,24 @@ void GLWidget::initRenderShaders()
     shaderParameter = "vNormal";
     if ((m_vNormalLocation = m_program->attributeLocation(shaderParameter)) < 0)
        qDebug() << "Unable to find shader location for " << shaderParameter;
+
+    shaderParameter = "uAmbientLighting";
+    if ((m_uniformAmbientLightingLoc = m_program->uniformLocation(shaderParameter)) < 0)
+        qDebug() << "Unable to find shader location for " << shaderParameter;
+
+    shaderParameter = "uDiffuseLighting";
+    if ((m_uniformDiffuseLightingLoc = m_program->uniformLocation(shaderParameter)) < 0)
+        qDebug() << "Unable to find shader location for " << shaderParameter;
+
+    shaderParameter = "uSpecularLighting";
+    if ((m_uniformSpecularLightingLoc = m_program->uniformLocation(shaderParameter)) < 0)
+        qDebug() << "Unable to find shader location for " << shaderParameter;
+
+    shaderParameter = "uSpecularExponent";
+    if ((m_uniformSpecularExponentLoc = m_program->uniformLocation(shaderParameter)) < 0)
+        qDebug() << "Unable to find shader location for " << shaderParameter;
 }
+
 void GLWidget::initGeometrySphere()
 {
   // Note: To ease the sphere creation, we use an index (aka elements) buffer. This allows us to create
@@ -265,16 +281,15 @@ void GLWidget::initGeometrySphere()
   GLsizeiptr offsetVertices = 0;
   GLsizeiptr offsetNormals = sizeof(vertices);
   GLsizeiptr dataSize = offsetNormals + sizeof(normals);
-  GLfloat color[3] = {0, 0, 1};
 
   glBindBuffer(GL_ARRAY_BUFFER, Buffers[VBO_Sphere]);
-  glBufferData(GL_ARRAY_BUFFER, dataSize+sizeof(color), NULL, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, dataSize, NULL, GL_STATIC_DRAW);
   glBufferSubData(GL_ARRAY_BUFFER, offsetVertices, sizeof(vertices), vertices);
   glBufferSubData(GL_ARRAY_BUFFER, offsetNormals, sizeof(normals), normals);
-  glBufferSubData(GL_ARRAY_BUFFER, sizeof(vertices), sizeof(color), color);
 
   // Set VAO
   glBindVertexArray(VAOs[VAO_Sphere]);
+
   glVertexAttribPointer(m_vPositionLocation, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(offsetVertices));
   glEnableVertexAttribArray(m_vPositionLocation);
 
@@ -288,52 +303,4 @@ void GLWidget::initGeometrySphere()
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
   glClearColor(0.5f, 0.5f, 0.5f, 1.0);// add background
-}
-
-void GLWidget::setAmbiantLightingR(double r)
-{
-}
-
-void GLWidget::setAmbiantLightingG(double g)
-{
-}
-
-void GLWidget::setAmbiantLightingB(double b)
-{
-}
-
-void GLWidget::setDiffuseLightingR(double r)
-{
-}
-
-void GLWidget::setDiffuseLightingG(double g)
-{
-}
-
-void GLWidget::setDiffuseLightingB(double b)
-{
-}
-
-void GLWidget::setSpecularLightingR(double r)
-{
-}
-
-void GLWidget::setSpecularLightingG(double g)
-{
-}
-
-void GLWidget::setSpecularLightingB(double b)
-{
-}
-
-void GLWidget::setSpecularLightingN(double n)
-{
-}
-
-void GLWidget::setSphereLongitude(double l)
-{
-}
-
-void GLWidget::setSphereLatitude(double l)
-{
 }

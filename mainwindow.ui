@@ -36,48 +36,48 @@
       <item row="1" column="1">
        <widget class="QDoubleSpinBox" name="ambientR">
         <property name="minimum">
-         <double>0.250000000000000</double>
+         <double>0.000000000000000</double>
         </property>
         <property name="maximum">
-         <double>2.000000000000000</double>
+         <double>1.000000000000000</double>
         </property>
         <property name="singleStep">
-         <double>0.100000000000000</double>
+         <double>0.010000000000000</double>
         </property>
         <property name="value">
-         <double>1.000000000000000</double>
+         <double>0.000000000000000</double>
         </property>
        </widget>
       </item>
       <item row="1" column="2">
        <widget class="QDoubleSpinBox" name="ambientG">
         <property name="minimum">
-         <double>0.250000000000000</double>
+         <double>0.000000000000000</double>
         </property>
         <property name="maximum">
-         <double>2.000000000000000</double>
+         <double>1.000000000000000</double>
         </property>
         <property name="singleStep">
-         <double>0.100000000000000</double>
+         <double>0.010000000000000</double>
         </property>
         <property name="value">
-         <double>1.000000000000000</double>
+         <double>0.000000000000000</double>
         </property>
        </widget>
       </item>
       <item row="1" column="3">
        <widget class="QDoubleSpinBox" name="ambientB">
         <property name="minimum">
-         <double>0.250000000000000</double>
+         <double>0.000000000000000</double>
         </property>
         <property name="maximum">
-         <double>2.000000000000000</double>
+         <double>1.000000000000000</double>
         </property>
         <property name="singleStep">
-         <double>0.100000000000000</double>
+         <double>0.010000000000000</double>
         </property>
         <property name="value">
-         <double>1.000000000000000</double>
+         <double>0.000000000000000</double>
         </property>
        </widget>
       </item>
@@ -125,39 +125,45 @@
       <item row="1" column="2">
        <widget class="QDoubleSpinBox" name="diffuseB">
         <property name="minimum">
-         <double>-90.000000000000000</double>
+         <double>0.000000000000000</double>
         </property>
         <property name="maximum">
-         <double>90.000000000000000</double>
+         <double>1.000000000000000</double>
         </property>
         <property name="singleStep">
-         <double>5.000000000000000</double>
+         <double>0.010000000000000</double>
         </property>
        </widget>
       </item>
       <item row="1" column="0">
        <widget class="QDoubleSpinBox" name="diffuseR">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="minimum">
-         <double>-90.000000000000000</double>
+         <double>0.000000000000000</double>
         </property>
         <property name="maximum">
-         <double>90.000000000000000</double>
+         <double>1.000000000000000</double>
         </property>
         <property name="singleStep">
-         <double>5.000000000000000</double>
+         <double>0.010000000000000</double>
         </property>
        </widget>
       </item>
       <item row="1" column="1">
        <widget class="QDoubleSpinBox" name="diffuseG">
         <property name="minimum">
-         <double>-90.000000000000000</double>
+         <double>0.000000000000000</double>
         </property>
         <property name="maximum">
-         <double>90.000000000000000</double>
+         <double>1.000000000000000</double>
         </property>
         <property name="singleStep">
-         <double>5.000000000000000</double>
+         <double>0.010000000000000</double>
         </property>
        </widget>
       </item>
@@ -196,13 +202,13 @@
       <item row="1" column="2">
        <widget class="QDoubleSpinBox" name="specularB">
         <property name="minimum">
-         <double>-1.000000000000000</double>
+         <double>0.000000000000000</double>
         </property>
         <property name="maximum">
          <double>1.000000000000000</double>
         </property>
         <property name="singleStep">
-         <double>0.100000000000000</double>
+         <double>0.010000000000000</double>
         </property>
        </widget>
       </item>
@@ -223,26 +229,26 @@
       <item row="1" column="0">
        <widget class="QDoubleSpinBox" name="specularR">
         <property name="minimum">
-         <double>-1.000000000000000</double>
+         <double>0.000000000000000</double>
         </property>
         <property name="maximum">
          <double>1.000000000000000</double>
         </property>
         <property name="singleStep">
-         <double>0.100000000000000</double>
+         <double>0.010000000000000</double>
         </property>
        </widget>
       </item>
       <item row="1" column="1">
        <widget class="QDoubleSpinBox" name="specularG">
         <property name="minimum">
-         <double>-1.000000000000000</double>
+         <double>0.000000000000000</double>
         </property>
         <property name="maximum">
          <double>1.000000000000000</double>
         </property>
         <property name="singleStep">
-         <double>0.100000000000000</double>
+         <double>0.010000000000000</double>
         </property>
        </widget>
       </item>
@@ -265,7 +271,14 @@
     <item row="3" column="1">
      <layout class="QGridLayout" name="gridLayout_6">
       <item row="0" column="0">
-       <widget class="QDoubleSpinBox" name="specularN"/>
+       <widget class="QDoubleSpinBox" name="specularN">
+        <property name="maximum">
+         <double>500.000000000000000</double>
+        </property>
+        <property name="value">
+         <double>1.000000000000000</double>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>

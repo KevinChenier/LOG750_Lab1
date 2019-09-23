@@ -20,9 +20,9 @@ void MainWindow::setupMediator() {
     ui->frame->setLayout(layout);
 
     //ambient lighting ui objects
-    QObject::connect(ui->ambientR, SIGNAL(valueChanged(double)),m_viewer, SLOT(setAmbiantLightingR(double)));
-    QObject::connect(ui->ambientG, SIGNAL(valueChanged(double)),m_viewer, SLOT(setAmbiantLightingG(double)));
-    QObject::connect(ui->ambientB, SIGNAL(valueChanged(double)),m_viewer, SLOT(setAmbiantLightingB(double)));
+    QObject::connect(ui->ambientR, SIGNAL(valueChanged(double)),m_viewer, SLOT(setAmbientLightingR(double)));
+    QObject::connect(ui->ambientG, SIGNAL(valueChanged(double)),m_viewer, SLOT(setAmbientLightingG(double)));
+    QObject::connect(ui->ambientB, SIGNAL(valueChanged(double)),m_viewer, SLOT(setAmbientLightingB(double)));
 
     //diffuse lighting ui objects
     QObject::connect(ui->diffuseR, SIGNAL(valueChanged(double)),m_viewer, SLOT(setDiffuseLightingR(double)));
