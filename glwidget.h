@@ -78,18 +78,18 @@ public:
 
 public slots:
     //Setters
-    void setAmbientLightingR(double r) { ambientR = GLfloat(r); }
-    void setAmbientLightingG(double g) { ambientG = GLfloat(g); }
-    void setAmbientLightingB(double b) { ambientB = GLfloat(b); }
-    void setDiffuseLightingR(double r) { diffuseR= GLfloat(r); }
-    void setDiffuseLightingG(double g) { diffuseG = GLfloat(g); }
-    void setDiffuseLightingB(double b) { diffuseB = GLfloat(b); }
-    void setSpecularLightingR(double r) { specularR = GLfloat(r); }
-    void setSpecularLightingG(double g) { specularG = GLfloat(g); }
-    void setSpecularLightingB(double b) { specularB = GLfloat(b); }
-    void setSpecularLightingN(double n) { specularN = GLfloat(n); }
-    void setSphereLongitude(double l) { sphereLongitude = GLfloat(l); }
-    void setSphereLatitude(double l) { sphereLatitude = GLfloat(l); }
+    void setAmbientLightingR(double r) { ambientR = GLfloat(r); update(); }
+    void setAmbientLightingG(double g) { ambientG = GLfloat(g); update(); }
+    void setAmbientLightingB(double b) { ambientB = GLfloat(b); update(); }
+    void setDiffuseLightingR(double r) { diffuseR= GLfloat(r); update(); }
+    void setDiffuseLightingG(double g) { diffuseG = GLfloat(g); update(); }
+    void setDiffuseLightingB(double b) { diffuseB = GLfloat(b); update(); }
+    void setSpecularLightingR(double r) { specularR = GLfloat(r); update(); }
+    void setSpecularLightingG(double g) { specularG = GLfloat(g); update(); }
+    void setSpecularLightingB(double b) { specularB = GLfloat(b); update(); }
+    void setSpecularLightingN(double n) { specularN = GLfloat(n); update(); }
+    void setSphereLongitude(double l) { sphereLongitude = GLfloat(l); update(); }
+    void setSphereLatitude(double l) { sphereLatitude = GLfloat(l); update(); }
 
 protected:
     void initializeGL() Q_DECL_OVERRIDE;
