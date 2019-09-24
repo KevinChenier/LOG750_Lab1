@@ -88,8 +88,8 @@ public slots:
     void setSpecularLightingG(double g) { specularG = GLfloat(g); update(); }
     void setSpecularLightingB(double b) { specularB = GLfloat(b); update(); }
     void setSpecularLightingN(double n) { specularN = GLfloat(n); update(); }
-    void setSphereLongitude(double l) { sphereLongitude = GLfloat(l); update(); }
-    void setSphereLatitude(double l) { sphereLatitude = GLfloat(l); update(); }
+    void setSphereLongitude(double l) ;
+    void setSphereLatitude(double l) ;
 
 protected:
     void initializeGL() Q_DECL_OVERRIDE;

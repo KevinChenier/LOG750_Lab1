@@ -309,10 +309,30 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QDoubleSpinBox" name="sphereNbLatitude"/>
+       <widget class="QDoubleSpinBox" name="sphereNbLatitude">
+        <property name="minimum">
+         <double>1.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>100.000000000000000</double>
+        </property>
+        <property name="value">
+         <double>22.000000000000000</double>
+        </property>
+       </widget>
       </item>
       <item row="1" column="0">
-       <widget class="QDoubleSpinBox" name="sphereNbLongitude"/>
+       <widget class="QDoubleSpinBox" name="sphereNbLongitude">
+        <property name="minimum">
+         <double>1.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>100.000000000000000</double>
+        </property>
+        <property name="value">
+         <double>20.000000000000000</double>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
@@ -344,7 +364,7 @@
      <x>0</x>
      <y>0</y>
      <width>600</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

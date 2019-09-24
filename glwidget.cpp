@@ -61,10 +61,10 @@ namespace
 {
     GLuint VAOs[NumVAOs];
     GLuint Buffers[NumBuffers];
-    const int numRowSphere = 20;
-    const int numColSphere = numRowSphere+2;
-    const int numVerticesSphere = numColSphere * numRowSphere + 2;
-    const int numTriSphere = numColSphere*(numRowSphere-1)*2 + 2*numColSphere;
+    int numRowSphere = 20;
+    int numColSphere = numRowSphere+2;
+    int numVerticesSphere = numColSphere * numRowSphere + 2;
+    int numTriSphere = numColSphere*(numRowSphere-1)*2 + 2*numColSphere;
 }
 
 const GLuint NumVertices = 3;
@@ -95,7 +95,7 @@ void GLWidget::paintGL()
     m_program->bind();
 
     // Paint sphere
-    // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     m_program->setUniformValue(m_uniformAmbientLightingLoc, getAmbientLightingR(), getAmbientLightingG(), getAmbientLightingB());
     m_program->setUniformValue(m_uniformDiffuseLightingLoc, getDiffuseLightingR(), getDiffuseLightingG(), getDiffuseLightingB());
     m_program->setUniformValue(m_uniformSpecularLightingLoc, getSpecularLightingR(), getSpecularLightingG(), getSpecularLightingB());
@@ -303,4 +303,20 @@ void GLWidget::initGeometrySphere()
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
   glClearColor(0.5f, 0.5f, 0.5f, 1.0);// add background
+}
+
+void GLWidget::setSphereLatitude(double l){
+    numRowSphere = l;
+    numVerticesSphere = numColSphere * numRowSphere + 2;
+    numTriSphere = numColSphere*(numRowSphere-1)*2 + 2*numColSphere;
+    initGeometrySphere();
+    update();
+}
+
+void GLWidget::setSphereLongitude(double l){
+    numColSphere = l;
+    numVerticesSphere = numColSphere * numRowSphere + 2;
+    numTriSphere = numColSphere*(numRowSphere-1)*2 + 2*numColSphere;
+    initGeometrySphere();
+    update();
 }
