@@ -2,6 +2,7 @@
 uniform vec3 uAmbientLighting;
 uniform vec3 uDiffuseLighting;
 uniform vec3 uSpecularLighting;
+uniform vec3 uLightingPosition;
 uniform float uSpecularExponent;
 in vec3 fPosition;
 in vec3 fNormal;
@@ -11,7 +12,7 @@ void
 main()
 {
     // Get lighting vectors
-    vec3 LightDirection = normalize(vec3(1.0) - fPosition); // Point light centered at (1, 1, 1)
+    vec3 LightDirection = normalize(uLightingPosition - fPosition); // Point light centered at (1, 1, 1)
     vec3 nfNormal = normalize(fNormal);
 
     // Compute diffuse component

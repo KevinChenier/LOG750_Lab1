@@ -75,6 +75,9 @@ public:
     GLfloat getSpecularLightingN() const { return specularN < 1.0f ? 1.0f : specularN; }
     GLfloat getSphereLongitude() const { return sphereLongitude < 0.0f ? 0.0f : sphereLongitude; }
     GLfloat getSphereLatitude() const { return sphereLatitude < 0.0f ? 0.0f : sphereLatitude; }
+    GLfloat getLightingPositionX() const { return lightingPositionX; }
+    GLfloat getLightingPositionY() const { return lightingPositionY; }
+    GLfloat getLightingPositionZ() const { return lightingPositionZ; }
 
 public slots:
     //Setters
@@ -90,6 +93,10 @@ public slots:
     void setSpecularLightingN(double n) { specularN = GLfloat(n); update(); }
     void setSphereLongitude(double l) { sphereLongitude = GLfloat(l); update(); }
     void setSphereLatitude(double l) { sphereLatitude = GLfloat(l); update(); }
+    void setLightingPositionX(double x) { lightingPositionX = GLfloat(x); update(); }
+    void setLightingPositionY(double y) { lightingPositionY = GLfloat(y); update(); }
+    void setLightingPositionZ(double z) { lightingPositionZ = GLfloat(z); update(); }
+
 
 protected:
     void initializeGL() Q_DECL_OVERRIDE;
@@ -106,6 +113,7 @@ private:
     int m_uniformDiffuseLightingLoc;
     int m_uniformSpecularLightingLoc;
     int m_uniformSpecularExponentLoc;
+    int m_uniformLightingPosition;
 
     // Lighting and sphere parameters
     GLfloat ambientR = 0.0f;
@@ -120,6 +128,9 @@ private:
     GLfloat specularN = 1.0f;
     GLfloat sphereLongitude = 0.0f;
     GLfloat sphereLatitude = 0.0f;
+    GLfloat lightingPositionX = 1.0f;
+    GLfloat lightingPositionY = 1.0f;
+    GLfloat lightingPositionZ = 1.0f;
 
     QOpenGLShaderProgram *m_program;
 };

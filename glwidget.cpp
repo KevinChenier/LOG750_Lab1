@@ -100,6 +100,7 @@ void GLWidget::paintGL()
     m_program->setUniformValue(m_uniformDiffuseLightingLoc, getDiffuseLightingR(), getDiffuseLightingG(), getDiffuseLightingB());
     m_program->setUniformValue(m_uniformSpecularLightingLoc, getSpecularLightingR(), getSpecularLightingG(), getSpecularLightingB());
     m_program->setUniformValue(m_uniformSpecularExponentLoc, getSpecularLightingN());
+    m_program->setUniformValue(m_uniformLightingPosition, getLightingPositionX(), getLightingPositionY(), getLightingPositionZ());
     glDrawElements(GL_TRIANGLES, numTriSphere*3, GL_UNSIGNED_INT, 0);
 
     glFlush();
@@ -177,6 +178,10 @@ void GLWidget::initRenderShaders()
 
     shaderParameter = "uSpecularExponent";
     if ((m_uniformSpecularExponentLoc = m_program->uniformLocation(shaderParameter)) < 0)
+        qDebug() << "Unable to find shader location for " << shaderParameter;
+
+    shaderParameter = "uLightingPosition";
+    if ((m_uniformLightingPosition = m_program->uniformLocation(shaderParameter)) < 0)
         qDebug() << "Unable to find shader location for " << shaderParameter;
 }
 

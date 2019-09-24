@@ -38,6 +38,11 @@ void MainWindow::setupMediator() {
     //sphere parameters
     QObject::connect(ui->sphereNbLatitude, SIGNAL(valueChanged(double)),m_viewer, SLOT(setSphereLatitude(double)));
     QObject::connect(ui->sphereNbLongitude, SIGNAL(valueChanged(double)),m_viewer, SLOT(setSphereLongitude(double)));
+
+    //Position lighting ui objects
+    QObject::connect(ui->xLight, SIGNAL(valueChanged(double)),m_viewer, SLOT(setLightingPositionX(double)));
+    QObject::connect(ui->yLight, SIGNAL(valueChanged(double)),m_viewer, SLOT(setLightingPositionY(double)));
+    QObject::connect(ui->zLight, SIGNAL(valueChanged(double)),m_viewer, SLOT(setLightingPositionZ(double)));
 }
 
 
