@@ -67,8 +67,6 @@ namespace
     int numTriSphere = numColSphere*(numRowSphere-1)*2 + 2*numColSphere;
 }
 
-const GLuint NumVertices = 3;
-
 GLWidget::GLWidget(QWidget *parent)
     : QOpenGLWidget(parent),
       m_program(nullptr)
