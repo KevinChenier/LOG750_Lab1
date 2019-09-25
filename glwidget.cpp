@@ -67,8 +67,6 @@ namespace
     int numTriSphere = numColSphere*(numRowSphere-1)*2 + 2*numColSphere;
 }
 
-const GLuint NumVertices = 3;
-
 GLWidget::GLWidget(QWidget *parent)
     : QOpenGLWidget(parent),
       m_program(nullptr)
@@ -103,7 +101,28 @@ void GLWidget::paintGL()
     m_program->setUniformValue(m_uniformLightingPosition, getLightingPositionX(), getLightingPositionY(), getLightingPositionZ());
     glDrawElements(GL_TRIANGLES, numTriSphere*3, GL_UNSIGNED_INT, 0);
 
+    // Additional feature to make the light move
+    if(playAnimation) animateLight();
+
     glFlush();
+}
+
+void GLWidget::animateLight()
+{
+    const float animationSpeed = 0.8f;
+
+    decrementX = getLightingPositionX() >= 98.0 ? true : getLightingPositionX() <= -98.0 ? false : decrementX;
+    decrementY = getLightingPositionY() >= 98.0 ? true : getLightingPositionY() <= -98.0 ? false : decrementY;
+    decrementZ = getLightingPositionZ() >= 98.0 ? true : getLightingPositionZ() <= -98.0 ? false : decrementZ;
+
+    if(decrementX) setLightingPositionX(getLightingPositionX() - animationSpeed);
+    else           setLightingPositionX(getLightingPositionX() + animationSpeed);
+
+    if(decrementY) setLightingPositionY(getLightingPositionY() - animationSpeed);
+    else           setLightingPositionY(getLightingPositionY() + animationSpeed);
+
+    if(decrementZ) setLightingPositionZ(getLightingPositionZ() - animationSpeed);
+    else           setLightingPositionZ(getLightingPositionZ() + animationSpeed);
 }
 
 void GLWidget::resizeGL(int, int)
