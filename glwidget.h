@@ -132,8 +132,8 @@ private:
     GLfloat lightingPositionY = 1.0f;
     GLfloat lightingPositionZ = 1.0f;
 
+    // Animation parameters
     bool playAnimation = false;
-
     bool decrementX = true;
     bool decrementY = true;
     bool decrementZ = true;
