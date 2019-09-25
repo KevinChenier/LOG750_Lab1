@@ -103,6 +103,14 @@ void GLWidget::paintGL()
     m_program->setUniformValue(m_uniformLightingPosition, getLightingPositionX(), getLightingPositionY(), getLightingPositionZ());
     glDrawElements(GL_TRIANGLES, numTriSphere*3, GL_UNSIGNED_INT, 0);
 
+    // Additional feature to make the light move
+    animateLight();
+
+    glFlush();
+}
+
+void GLWidget::animateLight()
+{
     if(getLightingPositionX() >= 98.0)          decrementX = true;
     else if(getLightingPositionX() <= -98.0)    decrementX = false;
 
@@ -120,9 +128,6 @@ void GLWidget::paintGL()
 
     if(decrementZ) setLightingPositionZ(getLightingPositionZ()-1.0);
     else          setLightingPositionZ(getLightingPositionZ()+1.0);
-
-
-    glFlush();
 }
 
 void GLWidget::resizeGL(int, int)

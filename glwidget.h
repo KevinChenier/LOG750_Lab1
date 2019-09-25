@@ -102,6 +102,7 @@ protected:
     void resizeGL(int width, int height) Q_DECL_OVERRIDE;
     void initGeometrySphere();
     void initRenderShaders();
+    void animateLight();
 
 private:
     // Shader Parameters
