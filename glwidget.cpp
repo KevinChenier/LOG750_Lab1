@@ -95,7 +95,7 @@ void GLWidget::paintGL()
     m_program->bind();
 
     // Paint sphere
-     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     m_program->setUniformValue(m_uniformAmbientLightingLoc, getAmbientLightingR(), getAmbientLightingG(), getAmbientLightingB());
     m_program->setUniformValue(m_uniformDiffuseLightingLoc, getDiffuseLightingR(), getDiffuseLightingG(), getDiffuseLightingB());
     m_program->setUniformValue(m_uniformSpecularLightingLoc, getSpecularLightingR(), getSpecularLightingG(), getSpecularLightingB());
@@ -195,6 +195,8 @@ void GLWidget::initGeometrySphere()
   //       vertices[2], vertices[3]) respectively.
   //
   //       Also note that indices are stored in a different type of buffer called Element Array Buffer.
+
+  makeCurrent();
 
   // Create sphere vertices and faces
   GLfloat vertices[numVerticesSphere][3];

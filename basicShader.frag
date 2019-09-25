@@ -15,11 +15,11 @@ main()
     vec3 nfNormal = normalize(fNormal);
 
     // Compute diffuse component
-    float diffuse = dot(nfNormal, LightDirection);
+    float diffuse = max(0.0,dot(nfNormal, LightDirection));
 
     // Compute specular component
-    vec3 reflection = reflect(-LightDirection, nfNormal);
-    vec3 nviewDirection = vec3(0.0, 0.0, -1.0);   // fPosition - vec3(0.0,0.0,1.0);
+    vec3 reflection = normalize(reflect(-LightDirection, nfNormal));
+    vec3 nviewDirection = normalize(-fPosition + vec3(0.0, 0.0, -1.0));
     float specular = pow(max(0.0, dot(reflection, nviewDirection)), uSpecularExponent);
 
     // Compute final color
