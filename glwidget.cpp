@@ -109,20 +109,24 @@ void GLWidget::paintGL()
 
 void GLWidget::animateLight()
 {
-    const float animationSpeed = 0.8f;
+    const GLfloat maxValue = 98.0f;  // used to switch animation orientation
+    const GLfloat animationSpeed = 0.8f;
+    const GLfloat lightPositionX = getLightingPositionX();
+    const GLfloat lightPositionY = getLightingPositionY();
+    const GLfloat lightPositionZ = getLightingPositionZ();
 
-    decrementX = getLightingPositionX() >= 98.0 ? true : getLightingPositionX() <= -98.0 ? false : decrementX;
-    decrementY = getLightingPositionY() >= 98.0 ? true : getLightingPositionY() <= -98.0 ? false : decrementY;
-    decrementZ = getLightingPositionZ() >= 98.0 ? true : getLightingPositionZ() <= -98.0 ? false : decrementZ;
+    decrementX = lightPositionX >= maxValue ? true : lightPositionX <= -maxValue ? false : decrementX;
+    decrementY = lightPositionY >= maxValue ? true : lightPositionY <= -maxValue ? false : decrementY;
+    decrementZ = lightPositionZ >= maxValue ? true : lightPositionZ <= -maxValue ? false : decrementZ;
 
-    if(decrementX) setLightingPositionX(getLightingPositionX() - animationSpeed);
-    else           setLightingPositionX(getLightingPositionX() + animationSpeed);
+    if(decrementX) setLightingPositionX(double(lightPositionX - animationSpeed));
+    else           setLightingPositionX(double(lightPositionX + animationSpeed));
 
-    if(decrementY) setLightingPositionY(getLightingPositionY() - animationSpeed);
-    else           setLightingPositionY(getLightingPositionY() + animationSpeed);
+    if(decrementY) setLightingPositionY(double(lightPositionY - animationSpeed));
+    else           setLightingPositionY(double(lightPositionY + animationSpeed));
 
-    if(decrementZ) setLightingPositionZ(getLightingPositionZ() - animationSpeed);
-    else           setLightingPositionZ(getLightingPositionZ() + animationSpeed);
+    if(decrementZ) setLightingPositionZ(double(lightPositionZ - animationSpeed));
+    else           setLightingPositionZ(double(lightPositionZ + animationSpeed));
 }
 
 void GLWidget::resizeGL(int, int)

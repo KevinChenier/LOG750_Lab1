@@ -173,7 +173,7 @@
     <item row="7" column="2">
      <widget class="QLabel" name="label_20">
       <property name="text">
-       <string>Light Position</string>
+       <string>Light position</string>
       </property>
      </widget>
     </item>
