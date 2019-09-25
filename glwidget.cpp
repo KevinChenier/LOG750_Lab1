@@ -103,6 +103,25 @@ void GLWidget::paintGL()
     m_program->setUniformValue(m_uniformLightingPosition, getLightingPositionX(), getLightingPositionY(), getLightingPositionZ());
     glDrawElements(GL_TRIANGLES, numTriSphere*3, GL_UNSIGNED_INT, 0);
 
+    if(getLightingPositionX() >= 98.0)          decrementX = true;
+    else if(getLightingPositionX() <= -98.0)    decrementX = false;
+
+    if(decrementX) setLightingPositionX(getLightingPositionX()-1.0);
+    else          setLightingPositionX(getLightingPositionX()+1.0);
+
+    if(getLightingPositionY() >= 98.0)          decrementY = true;
+    else if(getLightingPositionY() <= -98.0)    decrementY = false;
+
+    if(decrementY) setLightingPositionY(getLightingPositionY()-1.0);
+    else          setLightingPositionY(getLightingPositionY()+1.0);
+
+    if(getLightingPositionZ() >= 98.0)          decrementZ = true;
+    else if(getLightingPositionZ() <= -98.0)    decrementZ = false;
+
+    if(decrementZ) setLightingPositionZ(getLightingPositionZ()-1.0);
+    else          setLightingPositionZ(getLightingPositionZ()+1.0);
+
+
     glFlush();
 }
 

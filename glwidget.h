@@ -130,6 +130,10 @@ private:
     GLfloat lightingPositionY = 1.0f;
     GLfloat lightingPositionZ = 1.0f;
 
+    bool decrementX = true;
+    bool decrementY = true;
+    bool decrementZ = true;
+
     QOpenGLShaderProgram *m_program;
 };
 
