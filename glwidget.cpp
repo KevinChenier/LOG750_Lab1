@@ -102,30 +102,27 @@ void GLWidget::paintGL()
     glDrawElements(GL_TRIANGLES, numTriSphere*3, GL_UNSIGNED_INT, 0);
 
     // Additional feature to make the light move
-    animateLight();
+    if(playAnimation) animateLight();
 
     glFlush();
 }
 
 void GLWidget::animateLight()
 {
-    if(getLightingPositionX() >= 98.0)          decrementX = true;
-    else if(getLightingPositionX() <= -98.0)    decrementX = false;
+    const float animationSpeed = 0.8f;
 
-    if(decrementX) setLightingPositionX(getLightingPositionX()-1.0);
-    else          setLightingPositionX(getLightingPositionX()+1.0);
+    decrementX = getLightingPositionX() >= 98.0 ? true : getLightingPositionX() <= -98.0 ? false : decrementX;
+    decrementY = getLightingPositionY() >= 98.0 ? true : getLightingPositionY() <= -98.0 ? false : decrementY;
+    decrementZ = getLightingPositionZ() >= 98.0 ? true : getLightingPositionZ() <= -98.0 ? false : decrementZ;
 
-    if(getLightingPositionY() >= 98.0)          decrementY = true;
-    else if(getLightingPositionY() <= -98.0)    decrementY = false;
+    if(decrementX) setLightingPositionX(getLightingPositionX() - animationSpeed);
+    else           setLightingPositionX(getLightingPositionX() + animationSpeed);
 
-    if(decrementY) setLightingPositionY(getLightingPositionY()-1.0);
-    else          setLightingPositionY(getLightingPositionY()+1.0);
+    if(decrementY) setLightingPositionY(getLightingPositionY() - animationSpeed);
+    else           setLightingPositionY(getLightingPositionY() + animationSpeed);
 
-    if(getLightingPositionZ() >= 98.0)          decrementZ = true;
-    else if(getLightingPositionZ() <= -98.0)    decrementZ = false;
-
-    if(decrementZ) setLightingPositionZ(getLightingPositionZ()-1.0);
-    else          setLightingPositionZ(getLightingPositionZ()+1.0);
+    if(decrementZ) setLightingPositionZ(getLightingPositionZ() - animationSpeed);
+    else           setLightingPositionZ(getLightingPositionZ() + animationSpeed);
 }
 
 void GLWidget::resizeGL(int, int)

@@ -95,6 +95,7 @@ public slots:
     void setLightingPositionX(double x) { lightingPositionX = GLfloat(x); update(); }
     void setLightingPositionY(double y) { lightingPositionY = GLfloat(y); update(); }
     void setLightingPositionZ(double z) { lightingPositionZ = GLfloat(z); update(); }
+    void setPlayAnimation(bool playAnimation) { this->playAnimation = playAnimation; update(); }
 
 protected:
     void initializeGL() Q_DECL_OVERRIDE;
@@ -130,6 +131,8 @@ private:
     GLfloat lightingPositionX = 1.0f;
     GLfloat lightingPositionY = 1.0f;
     GLfloat lightingPositionZ = 1.0f;
+
+    bool playAnimation = false;
 
     bool decrementX = true;
     bool decrementY = true;
