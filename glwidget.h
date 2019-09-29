@@ -78,6 +78,7 @@ public:
     GLfloat getLightingPositionX() const { return lightingPositionX; }
     GLfloat getLightingPositionY() const { return lightingPositionY; }
     GLfloat getLightingPositionZ() const { return lightingPositionZ; }
+    GLboolean getSecondLight() const { return secondLight; }
 public slots:
     //Setters
     void setAmbientLightingR(double r) { ambientR = GLfloat(r); update(); }
@@ -96,6 +97,7 @@ public slots:
     void setLightingPositionY(double y) { lightingPositionY = GLfloat(y); update(); }
     void setLightingPositionZ(double z) { lightingPositionZ = GLfloat(z); update(); }
     void setPlayAnimation(bool playAnimation) { this->playAnimation = playAnimation; update(); }
+    void setSecondLight(bool l) { secondLight = GLboolean(l); update(); }
 
 protected:
     void initializeGL() Q_DECL_OVERRIDE;
@@ -114,6 +116,7 @@ private:
     int m_uniformSpecularLightingLoc;
     int m_uniformSpecularExponentLoc;
     int m_uniformLightingPosition;
+    int m_uniformSecondLightLoc;
 
     // Lighting and sphere parameters
     GLfloat ambientR = 0.0f;
@@ -131,6 +134,7 @@ private:
     GLfloat lightingPositionX = 1.0f;
     GLfloat lightingPositionY = 1.0f;
     GLfloat lightingPositionZ = 1.0f;
+    GLboolean secondLight = false;
 
     // Animation parameters
     bool playAnimation = false;

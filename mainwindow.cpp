@@ -47,6 +47,9 @@ void MainWindow::setupMediator() {
     //Play animation controller
     QObject::connect(ui->animationButton, SIGNAL(clicked(bool)),m_viewer, SLOT(setPlayAnimation(bool)));
 
+    //Second light controller
+    QObject::connect(ui->secondLight, SIGNAL(clicked(bool)),m_viewer, SLOT(setSecondLight(bool)));
+
 }
 
 
