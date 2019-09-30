@@ -79,6 +79,8 @@ public:
     GLfloat getLightingPositionY() const { return lightingPositionY; }
     GLfloat getLightingPositionZ() const { return lightingPositionZ; }
     GLboolean getSecondLight() const { return secondLight; }
+    GLboolean getWireframe() const { return wireFrame; }
+
 public slots:
     //Setters
     void setAmbientLightingR(double r) { ambientR = GLfloat(r); update(); }
@@ -98,6 +100,8 @@ public slots:
     void setLightingPositionZ(double z) { lightingPositionZ = GLfloat(z); update(); }
     void setPlayAnimation(bool playAnimation) { this->playAnimation = playAnimation; update(); }
     void setSecondLight(bool l) { secondLight = GLboolean(l); update(); }
+    void setWireframe(bool l) { wireFrame = GLboolean(l); }
+
 
 protected:
     void initializeGL() Q_DECL_OVERRIDE;
@@ -135,6 +139,7 @@ private:
     GLfloat lightingPositionY = 1.0f;
     GLfloat lightingPositionZ = 1.0f;
     GLboolean secondLight = false;
+    GLboolean wireFrame = false;
 
     // Animation parameters
     bool playAnimation = false;

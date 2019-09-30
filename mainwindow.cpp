@@ -50,6 +50,9 @@ void MainWindow::setupMediator() {
     //Second light controller
     QObject::connect(ui->secondLight, SIGNAL(clicked(bool)),m_viewer, SLOT(setSecondLight(bool)));
 
+    //Show wireframe view
+    QObject::connect(ui->wireframeBtn, SIGNAL(clicked(bool)),m_viewer, SLOT(setWireframe(bool)));
+
 }
 
 

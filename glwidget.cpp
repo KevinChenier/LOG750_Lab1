@@ -92,8 +92,17 @@ void GLWidget::paintGL()
     glBindVertexArray(VAOs[VAO_Sphere]);
     m_program->bind();
 
+
+    // activate wireframe mode if checked
+    if(getWireframe()){ glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+    // deactivate wireframe mode if unchecked
+    } else { glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); }
+
+    //refresh view
+    update();
+
     // Paint sphere
-    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     m_program->setUniformValue(m_uniformAmbientLightingLoc, getAmbientLightingR(), getAmbientLightingG(), getAmbientLightingB());
     m_program->setUniformValue(m_uniformDiffuseLightingLoc, getDiffuseLightingR(), getDiffuseLightingG(), getDiffuseLightingB());
     m_program->setUniformValue(m_uniformSpecularLightingLoc, getSpecularLightingR(), getSpecularLightingG(), getSpecularLightingB());
@@ -356,3 +365,4 @@ void GLWidget::setSphereLongitude(double l){
     initGeometrySphere();
     update();
 }
+
